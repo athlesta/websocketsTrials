@@ -1,0 +1,15 @@
+{
+  "name": "websockettrials",
+  "version": "1.0.0",
+  "description": "this is a websocket trials",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "vzOnAction",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "ws": "^7.4.5"
+  }
+}
