@@ -9,12 +9,12 @@
             setInterval("UpdateStatus()",1000);
             function UpdateStatus(){
                 console.log("Run Script");
-                $.ajax({ 
-                        type: 'GET', 
-                         url: 'http://localhost/status', 
-                        // data: { get_param: 'value' }, 
+                $.ajax({
+                        type: 'GET',
+                         url: 'https://whispering-fortress-48508.herokuapp.com/status', 
+                        // data: { get_param: 'value' },
                         dataType: 'JSON',//tests to receive json  data
-                        success: function (data) { 
+                        success: function (data) {
                             console.log("Sucessfully Received : " + data + " processed = " + data.data);
                             // $('#state').html(data);
                             // $('#state').html("we got him");
@@ -24,9 +24,9 @@
                         error: function(status) {
                             console.log("Error Received");
                         }
-                        
+
                     });
-                
+
             }
         </script>
     </head>
@@ -48,7 +48,7 @@
                 <h4>State:
                 <span id="state" style="display: inline;">
                     <!-- data will be put here from the switch -->
-                    
+
                 </span>
             </h4>
             </div>

@@ -5,7 +5,7 @@ const mqtt = require("mqtt"); //set up mqtt
 
 // mqtt data
 var MQTT_TOPIC = "room/light/state";
-var MQTT_ADDR = "mqtt://broker.hivemq.com"; 
+var MQTT_ADDR = "mqtt://broker.hivemq.com";
 var data ="-"; //to store status
 var options = {
 	clientId: 'clientId-7OW6XOmZys',
@@ -28,10 +28,14 @@ const port = 80
 // respond to index.html
 app.use('/', express.static('public'));
 
+// app.get("/",function(req,res){
+// 	res.sendFile(__dirname +"/index.html");
+// });
+
 app.get('/status', function(req, res) {
-    //get from mqtt 
+    //get from mqtt
     var obj = { "data" : data};
-    
+
     console.log("SENT : "+ JSON.stringify(obj));
     res.json(obj);
     // res.setHeader(200, {"Content-Type": "application/json"});
@@ -41,12 +45,12 @@ app.get('/status', function(req, res) {
 
 });
 
-app.listen(port, () => {
+app.listen(port || process.env.PORT, () => {
     console.log(`Listening at http://localhost:${port}`)
   })
 
   ///////////////////////////MQTT FUNCTIONS SECTION
-  
+
 function mqtt_connect()
 {
     console.log("connected to MQTT server!");
@@ -62,7 +66,7 @@ function mqtt_reconnect(err)
 	client  = mqtt.connect(MQTT_ADDR, options);
 }
 
-function mqtt_error(err) 
+function mqtt_error(err)
 {
     console.log("error");
     console.log(err);
@@ -79,7 +83,7 @@ function mqtt_messsageReceived(topic, message, packet)
 {
     data = String(message);
 	console.log("Topic=" +  topic + " &  Message=" + message + " ,  data = " + data + " type = " + typeof(data));
-    
+
 }
 
 function mqtt_offline()
