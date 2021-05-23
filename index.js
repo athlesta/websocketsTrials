@@ -46,7 +46,7 @@ app.get('/status', function(req, res) {
 });
 
 app.listen(process.env.PORT, () => {
-    console.log(`Listening at http://localhost:${port}`)
+    //console.log(`Listening at http://localhost:${port}`)
   })
 
   ///////////////////////////MQTT FUNCTIONS SECTION
