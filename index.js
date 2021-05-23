@@ -28,9 +28,9 @@ const port = 80
 // respond to index.html
 app.use('/', express.static('public'));
 
-// app.get("/",function(req,res){
-// 	res.sendFile(__dirname +"/index.html");
-// });
+app.get("/",function(req,res){
+	res.sendFile(__dirname +"/index.html");
+});
 
 app.get('/status', function(req, res) {
     //get from mqtt
