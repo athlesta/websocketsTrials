@@ -23,7 +23,7 @@ client.on('offline', mqtt_offline);
 client.on('close', mqtt_close);
 
 //port value
-// const port = 80
+const port = 80
 
 // respond to index.html
 app.use('/', express.static('public'));
@@ -45,8 +45,8 @@ app.get('/status', function(req, res) {
 
 });
 
-app.listen(process.env.PORT, () => {
-    //console.log(`Listening at http://localhost:${port}`)
+app.listen(port, () => {
+    console.log(`Listening at http://localhost:${port}`)
   })
 
   ///////////////////////////MQTT FUNCTIONS SECTION
