@@ -6,7 +6,7 @@
 	--navbar_bg: #FEFFFE;
 	--border: #3914AF;
 	--Main_bg_color: #0773A1 ;
-	--Main_text_color: #FFE463 ;
+	--Main_text_color: black ;
 	--selected: orange;
 	--Secondary_bg_color: #241414 ;
 
@@ -39,6 +39,7 @@ h6{	font-size: var(--h6);}
 }
 body{
 	background: var(--body_bg) ;
+	color: var(--Main_text_color);
 	font-size: var(--h4);
 	padding: 0px;
 	margin: 0px;
@@ -53,7 +54,7 @@ body{
 	font-size: 1.3rem;
 	min-height: 600px;
 	width: 15%;
-	color: black;
+	color: var(--Main_text_color);
 }
 
 .navbar{
@@ -78,7 +79,7 @@ body{
 	text-decoration: none;
 	padding: 10px 30px;
 	margin-left: 10px;
-	color: black;
+	color: var(--Main_text_color);
 }
 
 .navbar .item:hover{
@@ -112,14 +113,18 @@ body{
 .top-bar-wrapper{
 	margin-left: 10px;
 }
-
-.user{
+.user .fa.fa-moon-o{
+	font-size: 1.7rem ;
+	margin-right: 15px;
+	color: var(--Main_text_color); 
+}
+.user {
 	font-size: 1.2rem;
 	float: right;
 	padding-top: 5px;
 	margin-right: 10px;
 }
-.user .fa{
+.user .fa.fa-user-circle{
 	font-size: 1.7rem ;
 	margin-right: 15px;
 	color: green;
@@ -137,12 +142,29 @@ body{
 	padding: 20px;
 	background-color: var(--navbar_bg);
 	box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1);  /*shadow effect*/
+	border-radius: 0.5rem;
+	min-height: 50px;
 }
 
+.flex2{
+	width: 15%;
+	margin-left: 10px;
+	margin-top: 10px;
+	padding: 20px;
+	background-color: var(--navbar_bg);
+	box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1);  /*shadow effect*/
+	border-radius: 0.5rem;
+	min-height: 50px;
+}
 
+.flex1:hover ,.flex2:hover {
+	border: 1px solid rgba(118, 248, 161, 0.5);
+}
+
+/* 
 .section-footer{
 	
-}
+} */
 
 .footer-wrapper{
 	/*min-height: 20px;*/
