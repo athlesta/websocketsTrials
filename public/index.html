@@ -5,30 +5,16 @@
 	<link rel="icon" type="image/png" href="./images/NEXNET.png">
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script>
 
 		setInterval("UpdateStatus()",1000);
-		function UpdateStatus(){
+		async function UpdateStatus()
+		{
 			console.log("Run Script");
-			$.ajax({ 
-					type: 'GET', 
-						url: '/status', 
-					// data: { get_param: 'value' }, 
-					dataType: 'JSON',//tests to receive json  data
-					success: function (data) { 
-						console.log("Sucessfully Received : " + data + " processed = " + data.data);
-						// $('#state').html(data);
-						// $('#state').html("we got him");
-						$('#state').html(data.data);
-					}
-					,
-					error: function(status) {
-						console.log("Error Received");
-					}
-					
-				});
-			
+			const response = await fetch("/status"); //send get request
+			const data =  await response.json(); 
+			console.log(data);
+			document.getElementById("state").innerText = data.data;
 		}
 	</script>
 </head>
@@ -56,6 +42,7 @@
 							<i class="fa fa-moon-o" aria-hidden="true"></i>
 						</span>
 						<i class="fa fa-user-circle" aria-hidden="true"></i>Vishnu
+						<i class="fa fa-angle-down"></i>
 					</span>
 				</span>
 			</div>
@@ -76,7 +63,7 @@
 				<b>Switch 2</b><br>
 				STATE : 
 				<span id="state2">
-                    <!-- data will be put here from the switch -->
+                    <!-- data will be put here from the switch2 -->
                 </span>
 			</div>
 

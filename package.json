@@ -9,7 +9,9 @@
   "author": "Vishnu Ajith",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "monk": "^7.3.4",
     "mqtt": "^4.2.6",
     "ws": "^7.4.5"
   }

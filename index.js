@@ -3,12 +3,15 @@ const express = require('express')
 const app = express()
 const mqtt = require("mqtt"); //set up mqtt
 
+const brocker_API = "mqtt://broker.hivemq.com"
+
+
 // mqtt data
 var MQTT_TOPIC = "room/light/state";
-var MQTT_ADDR = "mqtt://broker.hivemq.com";
+var MQTT_ADDR = brocker_API;
 var data ="-"; //to store status
 var options = {
-	clientId: 'clientId-7OW6XOmZys',
+	clientId: 'clientId-7OW6XOmZyS',
 	port: 1883,
 	keepalive : 60
 };
@@ -34,7 +37,7 @@ app.get("/",function(req,res){
 
 app.get('/status', function(req, res) {
     //get from mqtt
-    var obj = { "data" : data};
+    var obj = {data:data};
 
     console.log("SENT : "+ JSON.stringify(obj));
     res.json(obj);
@@ -42,7 +45,6 @@ app.get('/status', function(req, res) {
     // res.write(JSON.stringify(obj));
     // res.write("data: " + data )
     // res.sendStatus(200);
-
 });
 
 app.listen(port, () => {

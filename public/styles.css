@@ -77,8 +77,9 @@ body{
 .navbar .item{
 	display: block;
 	text-decoration: none;
-	padding: 10px 30px;
+	padding: 10px 35px;
 	margin-left: 10px;
+	border-left: 5px solid var(--navbar_bg);
 	color: var(--Main_text_color);
 }
 
@@ -106,30 +107,38 @@ body{
 .top-bar{
 	background-color: var(--navbar_bg);
 	font-size: 1.7rem;
-	padding: 10px;
+	padding: 10px 0px 10px 10px;
 	box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1);  /*shadow effect*/
 }
 
 .top-bar-wrapper{
 	margin-left: 10px;
 }
-.user .fa.fa-moon-o{
-	font-size: 1.7rem ;
-	margin-right: 15px;
-	color: var(--Main_text_color); 
-}
+
+
 .user {
 	font-size: 1.2rem;
 	float: right;
 	padding-top: 5px;
 	margin-right: 10px;
 }
+
+.user .fa.fa-moon-o{
+	font-size: 1.7rem ;
+	margin-right: 15px;
+	color: var(--Main_text_color); 
+}
+
 .user .fa.fa-user-circle{
 	font-size: 1.7rem ;
 	margin-right: 15px;
 	color: green;
 }
 
+.user .fa.fa-angle-down{
+	margin: 5px;
+	color: var(--Main_text_color); 
+}
 
 .main-content{
 	display: flex;
@@ -144,6 +153,7 @@ body{
 	box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1);  /*shadow effect*/
 	border-radius: 0.5rem;
 	min-height: 50px;
+	border: 1px solid var(--navbar_bg);
 }
 
 .flex2{
@@ -155,6 +165,7 @@ body{
 	box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1);  /*shadow effect*/
 	border-radius: 0.5rem;
 	min-height: 50px;
+	border: 1px solid var(--navbar_bg);
 }
 
 .flex1:hover ,.flex2:hover {
