@@ -1,0 +1,5 @@
+models
+    user
+    appliance
+    analytics
+    

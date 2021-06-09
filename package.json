@@ -16,7 +16,7 @@
     "express": "^4.17.1",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
-    "monk": "^7.3.4",
+    "mongoose": "^5.12.13",
     "mqtt": "^4.2.6",
     "volleyball": "^1.5.1"
   },

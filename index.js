@@ -16,9 +16,29 @@ app.use(cors({
     origin: 'http://localhost:8080'
   }));
   
+
+// Connect to DB
+const mongoose = require('mongoose');
+mongoose.connect(process.env.mongoDB_native_driver,{                
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+})
+    .then(()=>{console.log("Connected to DB ....");})
+    .catch((e)=>{console.log(e);})
+
+
+
+    
+// Routes
+const user_routes = require('./server/routing/user_routes');
+app.use("/api/user",user_routes);
+
 app.use(middlewares.checkTokenSetUser);
 app.use('/auth' , auth);
 app.use('/mqtt' , mqtt);
+
+
 
 app.get("/",function(req,res){
   res.sendFile(__dirname + "/clientNew/public/pages/home/home.html");
