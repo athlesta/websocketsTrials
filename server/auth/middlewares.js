@@ -1,15 +1,15 @@
 const jwt = require('jsonwebtoken');
 function checkTokenSetUser(req,res,next) {
     //catch the authotisation header
-    const authHeader = req.get('authorization')
+    const authHeader = req.get('Authorization')
     if(authHeader){
-        //console.log(authHeader);
+        // console.log(authHeader);
         const token = authHeader.split(' ')[1];
         if(token){
             //decode the token
             jwt.verify(token, process.env.TOKEN_SECRET, (error, user)=> {
                 if(error){
-                    console.log(error); // bar
+                    // console.log(error); // bar
                 }
                 // console.log("Copied "+user+" to req.user");
                 req.user = user;

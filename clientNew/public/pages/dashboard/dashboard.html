@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NEXNET</title>
+	<link rel="icon" type="image/png" href="./images/nexnetLogo.png"> 
+	<link rel="stylesheet" type="text/css" href="./css/index_styles.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type = "text/javascript" src="./scripts/dashboard.js"></script>
+	<script>
+
+		// setInterval("UpdateStatus()",1000);
+		async function UpdateStatus()
+		{
+			console.log("Run Script");
+			const response = await fetch("/mqtt/status"); //send get request
+			const data =  await response.json(); 
+			console.log(data);
+			document.getElementById("state").innerText = data.data;
+		}
+	</script>
+</head>
+<body>
+	<div class="flex-container">
+	<!-- Navigation Section -->
+	<section class=section-nav>
+		<nav  class="navbar">
+			<span class="image-wrapper"> <img class="NEXNET-image" src="./images/nexnetLogo.png"></span>
+			<a class="item" href="#"><i class="fa fa-home fa-fw" aria-hidden="true"></i>Home</a>
+			<a class="item" href="#"><i class="fa fa-address-card fa-fw" aria-hidden="true"></i>Items</a>
+			<a class="item" href="#"  onclick="logout()"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>Logout</a>
+		</nav>
+	</section>
+
+	<section class=section-content>
+		<div class="content-wrapper">
+			<div class="top-bar">
+				<span class="top-bar-wrapper">
+					<b>Dashboard</b>
+
+					</span>
+					<span class="user">
+						<span class="dark-mode">
+							<i class="fa fa-moon-o" aria-hidden="true"></i>
+						</span>
+						<i class="fa fa-user-circle" aria-hidden="true"></i><span id="user">Vishnu</span>
+						<i class="fa fa-angle-down"></i>
+					</span>
+				</span>
+			</div>
+
+		<!-- main Content section -->
+		<div class="main-content">
+			<!-- Flex1 section -->
+
+			<div class="flex1">
+				<b>Switch 1</b><br>
+				STATE : 
+				<span id="state">
+                    <!-- data will be put here from the switch -->
+                </span>
+			</div>
+
+			<div class="flex2">
+				<b>Switch 2</b><br>
+				STATE : 
+				<span id="state2">
+                    <!-- data will be put here from the switch2 -->
+                </span>
+			</div>
+
+		</div>
+	</section>
+	</div>
+	<section class=section-footer>
+		<div  class="footer-wrapper">
+			<b>NEXNET &copy; 2021</b>
+		</div>
+	</section>
+</body>
+</html>

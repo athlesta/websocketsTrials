@@ -1,99 +1,65 @@
 // imports
-const express = require('express')
+const express = require('express');
+const volleyball = require('volleyball');
+const cors = require('cors'); //to take cors issue
+require('dotenv').config(); //to get all values in .env file 
+const middlewares = require('./server/auth/middlewares.js');
+const auth = require('./server/auth/index.js');//get the router
+const mqtt = require('./server/mqtt/mqtt.js');//get the router mqtt
+
 const app = express()
-const mqtt = require("mqtt"); //set up mqtt
 
-const brocker_API = "mqtt://broker.hivemq.com"
-
-
-// mqtt data
-var MQTT_TOPIC = "room/light/state";
-var MQTT_ADDR = brocker_API;
-var data ="-"; //to store status
-var options = {
-	clientId: 'clientId-7OW6XOmZyS',
-	port: 1883,
-	keepalive : 60
-};
-
-client  = mqtt.connect(MQTT_ADDR, options);
-
-client.on('connect', mqtt_connect);
-client.on('reconnect', mqtt_reconnect);
-client.on('error', mqtt_error);
-client.on('message', mqtt_messsageReceived);
-client.on('offline', mqtt_offline);
-client.on('close', mqtt_close);
-
-//port value
-const port = 80
-
-// respond to index.html
-app.use('/', express.static('public'));
+app.use(express.static("public"));
+app.use(volleyball);
+app.use(express.json());
+app.use(cors({
+    origin: 'http://localhost:8080'
+  }));
+  
+app.use(middlewares.checkTokenSetUser);
+app.use('/auth' , auth);
+app.use('/mqtt' , mqtt);
 
 app.get("/",function(req,res){
-	res.sendFile(__dirname +"/index.html");
+  res.sendFile(__dirname + "/clientNew/public/pages/home/home.html");
 });
 
-app.get('/status', function(req, res) {
-    //get from mqtt
-    var obj = {data:data};
-
-    console.log("SENT : "+ JSON.stringify(obj));
-    res.json(obj);
-    // res.setHeader(200, {"Content-Type": "application/json"});
-    // res.write(JSON.stringify(obj));
-    // res.write("data: " + data )
-    // res.sendStatus(200);
+app.get("/login",function(req,res){
+  res.sendFile(__dirname + "/clientNew/public/pages/login/login.html");
 });
 
-app.listen(port, () => {
-    console.log(`Listening at http://localhost:${port}`)
-  })
+app.get("/dashboard",function(req,res){
+  res.sendFile(__dirname + "/clientNew/public/pages/dashboard/dashboard.html");
+});
 
-  ///////////////////////////MQTT FUNCTIONS SECTION
+app.get('/check', (req, res) => {
+    res.json({
+    //   message : 'NEXNET 2021',
+      user : req.user,
+    });
+});
 
-function mqtt_connect()
-{
-    console.log("connected to MQTT server!");
-    // subscribe to a topic
-    client.subscribe(MQTT_TOPIC, mqtt_subscribe);
-    // mqtt_publish("hi", "helloWorld");
-}
+function notFound(req, res, next) {
+    res.status(404);
+    const error = new Error('Not Found - ' + req.originalUrl);
+    next(error);
+  }
+  
+  function errorHandler(err, req, res, next) {
+    res.status(res.statusCode || 500);
+    res.json({
+      message: err.message,
+      stack: err.stack
+    });
+  }
+  
+  app.use(notFound);
+  app.use(errorHandler);
+  
+  const port = process.env.PORT || 80;
+  app.listen(port, () => {
+    console.log('Listening on port', port);
+  });
 
-function mqtt_reconnect(err)
-{
-    console.log("Reconnect MQTT");
-    if (err) {console.log(err);}
-	client  = mqtt.connect(MQTT_ADDR, options);
-}
 
-function mqtt_error(err)
-{
-    console.log("error");
-    console.log(err);
-    client.end();
-}
-
-function mqtt_subscribe(err, granted)
-{
-    console.log("Subscribed to TOPIC=" + MQTT_TOPIC);
-    if (err) {console.log(err);}
-}
-
-function mqtt_messsageReceived(topic, message, packet)
-{
-    data = String(message);
-	console.log("Topic=" +  topic + " &  Message=" + message + " ,  data = " + data + " type = " + typeof(data));
-
-}
-
-function mqtt_offline()
-{
-	console.log("MQTT Server is unavailable");
-}
-
-function mqtt_close()
-{
-	console.log("Close MQTT");
-}
+ 

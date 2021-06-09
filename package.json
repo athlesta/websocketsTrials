@@ -1,18 +1,27 @@
 {
-  "name": "wesockettesting",
+  "name": "nexnet-auth",
   "version": "1.0.0",
-  "description": "for testing the websocket webpage real time updating",
+  "description": "Authentication and dashboard",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run": "nodemon index.js",
+    "browser": "start watchify -v -d clientNew/public/pages/home/home.js -o public/scripts/home.js && start  watchify -v -d clientNew/public/pages/dashboard/dashboard.js -o public/scripts/dashboard.js && start  watchify -v -d clientNew/public/pages/login/login.js -o public/scripts/login.js"
   },
   "author": "Vishnu Ajith",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
     "monk": "^7.3.4",
     "mqtt": "^4.2.6",
-    "ws": "^7.4.5"
+    "volleyball": "^1.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "watchify": "^4.0.0"
   }
 }

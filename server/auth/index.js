@@ -34,6 +34,7 @@ function createTokenSendResponse(user, res ,next) {
         expiresIn: '1d'
     }, (err,token)=>{
        if(err){
+            console.log(err);
             respondError422(res,next);
        }else
        {    //send the token
