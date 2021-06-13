@@ -7,7 +7,7 @@ const db = require('../db/connection.js');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/User')
-users.createIndex('username',{unique : true});
+// users.createIndex('username',{unique : true});
 //any route comming to here is prepended with /auth
 
 const schema = Joi.object({
@@ -22,7 +22,23 @@ const schema = Joi.object({
         .min(8)
         .trim()
         .required(),
+    email: Joi.string()
+        .required(),
 })
+const logInSchema = Joi.object({
+    username: Joi.string()
+        .alphanum()
+        .min(2)
+        .max(30)
+        .required(),
+
+    password: Joi.string()
+        .pattern(new RegExp('^[a-zA-Z0-9_]{8,30}$'))
+        .min(8)
+        .trim()
+        .required(),
+})
+
 
 function createTokenSendResponse(user, res ,next) {
     //make payload for signing the JWT
@@ -47,15 +63,6 @@ function createTokenSendResponse(user, res ,next) {
 }
 
 
-// Connect to DB
-const mongoose = require('mongoose');
-mongoose.connect(process.env.mongoDB_native_driver,{                
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true
-})
-    .then(()=>{console.log("Connected to DB ....");})
-    .catch((e)=>{console.log(e);})
 
 
 
@@ -68,7 +75,7 @@ router.get('/', (req,res) => {
 
 // POST /auth/signup
 router.post('/signup',(req ,res,next) => {
-    console .log(req.body);
+    console.log(req.body);
     const result= schema.validate(req.body);
     // res.json(result);
     
@@ -101,22 +108,13 @@ router.post('/signup',(req ,res,next) => {
                             return res.status(500).json(err);
                         }
                         else{
-                            createTokenSendResponse(insertedUser, res ,next);
                             return res.status(200).json(
                                 {
-                                    "token" : newUser.
+                                    "token" : newUser.generateJwt()
                                 }
                             )
-                            // return res.status(200).json(new)
                         }
                     })
-                    User.insert(newUser)
-                    .then(insertedUser => {
-                         // delete the hashed password before sending resonse
-                        // delete insertedUser.password;
-                        // res.json(insertedUser);
-                        createTokenSendResponse(insertedUser, res ,next);
-                    }) 
                })
            }
         })
@@ -136,11 +134,14 @@ function respondError422(res,next) {
 
 // POST /auth/login
 router.post('/login',(req ,res,next) => {
-    console .log(req.body);
-    const result= schema.validate(req.body);
+    console.log(req.body);
+    const result= logInSchema.validate(req.body);
     if(result.error == undefined){
         //make sure username is unique
-        users.findOne({ username: req.body.username })
+        // users.findOne({ username: req.body.username })
+        User.findOne({
+            "username": req.body.username,
+        })
         .then( (user) => {
             //if user in database
            if(user){
@@ -151,16 +152,21 @@ router.post('/login',(req ,res,next) => {
                 
                 if( result == true){
                     //passwords are match
-                    createTokenSendResponse(user, res ,next);
+                    // createTokenSendResponse(user, res ,next);
+                    res.status(200).json({  
+                        "token" : user.generateJwt()
+                    })
                 }
                 else{
                     //if passwords are not matching
+                    console.log("Password doesn't match ",result)
                     respondError422(res,next);
                 }
             });
            }
            else{
                //user not in DB
+               console.log("User is not in db ",user)
                respondError422(res,next);
            }
         })

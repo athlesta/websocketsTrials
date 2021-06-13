@@ -20,12 +20,11 @@ const userSchema = new mongoose.Schema({
     join_date: {
         type: Date,
         default: Date.now,
-    },
-    aplliances_array: {
-        type: Array,
-        default: []
-
     }
+    // aplliances_array: {
+    //     type: Array,
+    //     default: []
+    // }
 
 })
 
@@ -34,7 +33,7 @@ userSchema.methods.generateJwt = function () {
         _id: this._id,
         username: this.username
     },
-        process.env.JWT_SECRET,
+        process.env.TOKEN_SECRET,
     {
         expiresIn: process.env.JWT_EXP
     });

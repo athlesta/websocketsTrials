@@ -17,24 +17,18 @@ app.use(cors({
   }));
   
 
-// Connect to DB
-const mongoose = require('mongoose');
-mongoose.connect(process.env.mongoDB_native_driver,{                
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true
-})
-    .then(()=>{console.log("Connected to DB ....");})
-    .catch((e)=>{console.log(e);})
 
 
 
+
+// Token Middleware
+const verifyJwtToken = require('./server/auth/middlewares');
     
 // Routes
 const user_routes = require('./server/routing/user_routes');
-app.use("/api/user",user_routes);
+app.use("/user",verifyJwtToken.verifyJwtToken,user_routes);
 
-app.use(middlewares.checkTokenSetUser);
+// app.use(middlewares.checkTokenSetUser);
 app.use('/auth' , auth);
 app.use('/mqtt' , mqtt);
 
@@ -76,7 +70,7 @@ function notFound(req, res, next) {
   app.use(notFound);
   app.use(errorHandler);
   
-  const port = process.env.PORT || 80;
+  const port = process.env.PORT || 8080;
   app.listen(port, () => {
     console.log('Listening on port', port);
   });

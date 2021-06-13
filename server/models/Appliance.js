@@ -14,10 +14,14 @@ const applianceSchema = new mongoose.Schema({
         type: Boolean,
         requires: true,
         default: false
+    },
+    appliance_type: {
+        type: String, 
+        enum: ["switch", "regulator"] ,
+        required: true,
+        default: "switch"
     }
     
-    
-
 })
 
 

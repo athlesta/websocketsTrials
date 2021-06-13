@@ -21,3 +21,11 @@ module.exports.verifyJwtToken = (req, res, next) => {
         )
     }
 }
+
+module.exports.getTokenFromReq = (req)=>{
+    return req.headers.authorization.split(' ')[1];
+}
+
+module.exports.getUserFromToken = (token)=>{
+    return jwt.decode(token)['_id'];
+}

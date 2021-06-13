@@ -8,7 +8,7 @@ var MQTT_TOPIC = "room/light/state";
 var MQTT_ADDR = brocker_API;
 var data ="-"; //to store status
 var options = {
-	clientId: 'clientId-7OW6XOmZyS',
+	clientId: 'clientId-8OW6XOmZyS',
 	port: 1883,
 	keepalive : 60
 };
