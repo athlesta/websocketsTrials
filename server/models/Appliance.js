@@ -14,10 +14,7 @@ const applianceSchema = new mongoose.Schema({
         type: Boolean,
         requires: true,
         default: false
-    }
-    
-    
-
+    },
 })
 
 

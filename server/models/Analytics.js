@@ -24,10 +24,7 @@ const analyticsSchema = new mongoose.Schema({
     current_rating_array: {
         type: Array,
         // validate: [limit_60,"max 60 elements"]
-    }
-    
-    
-
+    },
 })
 
 const limit_60 = (array)=>{

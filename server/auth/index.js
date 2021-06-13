@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const db = require('../db/connection.js');
 const jwt = require('jsonwebtoken');
 
-const users = db.get('users')
+const User = require('../models/User')
 users.createIndex('username',{unique : true});
 //any route comming to here is prepended with /auth
 
@@ -60,7 +60,7 @@ router.post('/signup',(req ,res,next) => {
     
     if(result.error == undefined){
         //make sure username is unique
-        users.findOne({ username: req.body.username })
+        User.findOne({ username: req.body.username })
         .then( user => {
             //if user is undefined then user not in db .otherwise duplicate user detected
            if(user){
@@ -76,11 +76,27 @@ router.post('/signup',(req ,res,next) => {
                bcrypt.hash(req.body.password, 12)
                .then(hashedPassword => {
                     //insert the userwith the hashed password
-                    const newUser ={
+                    const newUser = new User({
                         username : req.body.username,
                         password : hashedPassword,
-                    }
-                    users.insert(newUser)
+                        email: req.body.email,
+
+                    })
+                    newUser.save((err,success)=>{
+                        if(err){
+                            return res.status(500).json(err);
+                        }
+                        else{
+                            createTokenSendResponse(insertedUser, res ,next);
+                            return res.status(200).json(
+                                {
+                                    "token" : newUser,
+                                }
+                            )
+                            // return res.status(200).json(new)
+                        }
+                    })
+                    User.insert(newUser)
                     .then(insertedUser => {
                          // delete the hashed password before sending resonse
                         // delete insertedUser.password;
