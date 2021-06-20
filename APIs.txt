@@ -1,0 +1,13 @@
+This file contains all the apis that are acessible by the public
+-------------------------------------------------------------------------
+    Name      |        Route            | Data ( JSON)     |     Response
+-----------------------------------------------------------|
+  Login       |         /auth/login     |     username :   |
+                                        |     password :   |
+                                                            |      
+---------------------------------------------------------- 
+  signup      |     /auth/signup        |   username : 
+                                        |   password : 
+                                        |   email: 
+              |
+-----------------------------------------------------------

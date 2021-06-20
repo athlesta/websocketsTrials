@@ -16,11 +16,6 @@ app.use(cors({
     origin: 'http://localhost:8080'
   }));
   
-
-
-
-
-
 // Token Middleware
 const verifyJwtToken = require('./server/auth/middlewares');
     
