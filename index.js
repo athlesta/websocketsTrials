@@ -23,6 +23,8 @@ const verifyJwtToken = require('./server/auth/middlewares');
 const user_routes = require('./server/routing/user_routes');
 app.use("/user",verifyJwtToken.verifyJwtToken,user_routes);
 
+app.use("/check",middlewares.checkTokenSetUser);
+
 // app.use(middlewares.checkTokenSetUser);
 app.use('/auth' , auth);
 app.use('/mqtt' , mqtt);

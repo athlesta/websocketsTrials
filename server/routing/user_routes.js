@@ -6,6 +6,7 @@ const verifyJWT = require('../verify_token/verify_jwt_token');
 const Appliance = require('../models/Appliance');
 const User = require('../models/User');
 
+
 // URL = user/get_appliances
 router.post('/get_appliances',async (req,res)=>{
     var token = verifyJWT.getTokenFromReq(req);
