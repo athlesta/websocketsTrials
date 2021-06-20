@@ -24,7 +24,7 @@ const user_routes = require('./server/routing/user_routes');
 app.use("/user",verifyJwtToken.verifyJwtToken,user_routes);
 
 app.use("/check",middlewares.checkTokenSetUser);
-app.get('/check', (req, res) => {
+app.post('/check', (req, res) => {
   res.json({
   //   message : 'NEXNET 2021',
     user : req.user,
