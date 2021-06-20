@@ -1,7 +1,7 @@
 // import Joi from 'joi';
 const Joi = require('joi');
 
-const LOGIN_URL = 'http://localhost/auth/login';
+const LOGIN_URL = '/auth/login';
 
 const schema = Joi.object({
     username: Joi.string()

@@ -3,7 +3,7 @@ const Joi = require('joi');
 
 // // import loading_anim from '../assets/loading.svg';
 
-const SIGNUP_URL = 'http://localhost/auth/signup';
+const SIGNUP_URL = '/auth/signup';
 
 
 function loadingHandler(){

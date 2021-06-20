@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost/check'
+const API_URL = '/check';
 
 var data={
     user: null,
